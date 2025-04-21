@@ -1,0 +1,345 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Conteneur principal */
+.container {
+    width: 400px;
+    margin: 70px auto;
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    padding: 35px 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Avatar utilisateur */
+.avatar-container img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #fccc54;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+/* Infos utilisateur */
+.info-container h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #222;
+}
+
+.info-container p {
+    font-size: 14px;
+    margin: 2px 0;
+    color: #555;
+}
+
+.role {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 8px;
+    color: #333;
+}
+
+/* Bâtiments */
+.building-box {
+    margin-top: 25px;
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 100%;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.building-box h4 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+.building-list {
+    max-height: 150px;
+    overflow-y: auto;
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.building-list li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.building-list li::before {
+    content: "🏢";
+    font-size: 16px;
+}
+
+/* Scroll doux pour la liste si trop longue */
+.building-list::-webkit-scrollbar {
+    width: 6px;
+}
+.building-list::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Les boutons sous forme de liens ronds */
+.actions .btn-action {
+    background-color: white;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.actions .btn-action:hover {
+    transform: scale(1.1);
+}
+
+.actions .btn-action.accept {
+    color: #2ecc71;
+    border: 2px solid #2ecc71;
+}
+
+.actions .btn-action.refuse {
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+}
+
+
+.arrow.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    border-color: #ddd;
+}
+
+.nav-arrows {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+/* Flèches gauche et droite */
+.nav-arrows .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: 2px solid #ffbe2e;
+    color: #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s ease;
+    z-index: 10;
+}
+
+.nav-arrows .arrow:hover {
+    background-color: #ffbe2e;
+    color: white;
+}
+
+/* Gauche et droite */
+.nav-arrows .left {
+    left: -60px;
+}
+
+.nav-arrows .right {
+    right: -60px;
+}
+
+/* Désactivé */
+.nav-arrows .disabled {
+    pointer-events: none;
+    opacity: 0.4;
+    border-color: #ccc;
+    color: #aaa;
+}
+
+/* ============================= */
+/* ✅ Popup intégrée dans le card */
+/* ============================= */
+.popup-refus {
+    margin-top: 25px;
+    width: 100%;
+    background-color: #fff7f7;
+    border: 1.5px solid #e74c3c;
+    border-radius: 12px;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+    display: none; /* masqué par défaut */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+.popup-refus p {
+    font-weight: 500;
+    font-size: 16px;
+    color: #e74c3c;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.popup-refus textarea {
+    width: 100%;
+    height: 90px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    font-family: inherit;
+    margin-bottom: 15px;
+}
+
+.popup-refus .popup-btns {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.popup-refus .popup-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.popup-refus .popup-btn.confirm {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.popup-refus .popup-btn.cancel {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.popup-refus .popup-btn:hover {
+    opacity: 0.9;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ======================= */
+/* 📱 RESPONSIVE DESIGN 🔽 */
+/* ======================= */
+@media screen and (max-width: 600px) {
+    .container {
+        width: 90%; /* au lieu de 400px */
+        padding: 25px 20px;
+        margin: 40px auto;
+    }
+
+    .avatar-container img {
+        width: 80px;
+        height: 80px;
+        border-width: 4px;
+    }
+
+    .info-container h2 {
+        font-size: 18px;
+    }
+
+    .info-container p,
+    .role {
+        font-size: 13px;
+    }
+
+    .building-list li {
+        font-size: 13px;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .actions .btn-action {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .popup-refus {
+        padding: 15px;
+    }
+
+    .popup-refus textarea {
+        font-size: 13px;
+        height: 80px;
+    }
+
+    .popup-refus .popup-btns {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .popup-refus .popup-btn {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .nav-arrows .arrow {
+        width: 35px;
+        height: 35px;
+        font-size: 20px;
+    }
+
+    .nav-arrows .left {
+        left: -40px;
+    }
+
+    .nav-arrows .right {
+        right: -40px;
+    }
+}
